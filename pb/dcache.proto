@@ -1,0 +1,22 @@
+edition = "2023";
+
+option features.field_presence = IMPLICIT;
+option go_package = "./";
+import "google/protobuf/empty.proto";
+package pd;
+
+message Request {
+  string group = 1;
+  string key   = 2;
+  bytes  value = 3;
+}
+
+message ResponseForGet {
+  bytes  value = 1;
+}
+
+service DCache {
+  rpc Get(Request)    returns (ResponseForGet) {}
+  rpc Set(Request)    returns (google.protobuf.Empty) {}
+  rpc Delete(Request) returns (google.protobuf.Empty) {}
+}
